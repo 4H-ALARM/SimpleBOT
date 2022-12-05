@@ -6,11 +6,11 @@ public class SB_Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		DriveMotor dm1 = new DriveMotor("frontLeft");
-		DriveMotor dm2 = new DriveMotor("frontRight");
-		DriveMotor dm3 = new DriveMotor("rearLeft");
-		DriveMotor dm4 = new DriveMotor("rearRight");
-		//DriveTrain dt = new DriveTrain();
+		Motor dm1 = new Motor("frontLeft");
+		Motor dm2 = new Motor("frontRight");
+		Motor dm3 = new Motor("rearLeft");
+		Motor dm4 = new Motor("rearRight");
+		// DriveTrain dt = new DriveTrain();
 
 		// Start stopped
 		dm1.setSpeed(0);
@@ -26,6 +26,7 @@ public class SB_Main {
 		while(true){	    
 		    String direction = input.next();
 		    // dt.drive(direction);
+		    // dt.updateSensors();
 		        
 		    if(stop.compareTo(direction) == 0)
 		        break;
