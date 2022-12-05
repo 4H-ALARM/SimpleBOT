@@ -7,8 +7,8 @@ public class DriveTrain {
 	Motor m_rL;
 	Motor m_rR;
 	
-	Sensor m_hitWall;
-	
+	Sensor m_hitFrontWall;
+	Sensor m_hitBackWall;
 	
 	public DriveTrain() {
 		m_fL = new Motor("frontLeft");
@@ -16,7 +16,8 @@ public class DriveTrain {
 		m_rL= new Motor("rearLeft");
 		m_rR= new Motor("rearRight");
 		
-		m_hitWall = new Sensor();
+		m_hitFrontWall = new Sensor();
+		m_hitBackWall = new Sensor();
 	}
 	
 	public void drive(String direction) {
@@ -25,7 +26,7 @@ public class DriveTrain {
 	    String backward = "b";
 	    
 	    if (forward.compareTo(direction) == 0) {
-	    	if (m_hitWall.read()) {
+	    	if (m_hitFrontWall.read()) {
 	    		go(0);
 	    	} else {
 	    		go(1);
@@ -33,15 +34,21 @@ public class DriveTrain {
 	    }
 	    
 	    if (backward.compareTo(direction) == 0) {
-	    	go(-1);
+	    	if (m_hitBackWall.read()) {
+	    		go(0);
+	    	} else {
+	    		go(-1);
+	    	}
 	    }
 	    
 	    if (stop.compareTo(direction) == 0) {
 	    	go(0);
-	    }
-	    
-	    m_hitWall.update();
-		
+	    }	
+	}
+	
+	public void updateSensors() {
+		m_hitFrontWall.update();
+		m_hitBackWall.update();
 	}
 	
 	private void go(int s) {
