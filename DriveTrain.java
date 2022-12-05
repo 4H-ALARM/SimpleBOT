@@ -2,17 +2,21 @@ package SB;
 
 public class DriveTrain {
 	
-	DriveMotor m_fL;
-	DriveMotor m_fR;
-	DriveMotor m_rL;
-	DriveMotor m_rR;
+	Motor m_fL;
+	Motor m_fR;
+	Motor m_rL;
+	Motor m_rR;
+	
+	Sensor m_hitWall;
 	
 	
 	public DriveTrain() {
-		m_fL = new DriveMotor("frontLeft");
-		m_fR = new DriveMotor("frontRight");
-		m_rL= new DriveMotor("rearLeft");
-		m_rR= new DriveMotor("rearRight");
+		m_fL = new Motor("frontLeft");
+		m_fR = new Motor("frontRight");
+		m_rL= new Motor("rearLeft");
+		m_rR= new Motor("rearRight");
+		
+		m_hitWall = new Sensor();
 	}
 	
 	public void drive(String direction) {
@@ -21,7 +25,11 @@ public class DriveTrain {
 	    String backward = "b";
 	    
 	    if (forward.compareTo(direction) == 0) {
-	    	go(1);
+	    	if (m_hitWall.read()) {
+	    		go(0);
+	    	} else {
+	    		go(1);
+	    	}	    	
 	    }
 	    
 	    if (backward.compareTo(direction) == 0) {
@@ -31,6 +39,8 @@ public class DriveTrain {
 	    if (stop.compareTo(direction) == 0) {
 	    	go(0);
 	    }
+	    
+	    m_hitWall.update();
 		
 	}
 	
