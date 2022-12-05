@@ -46,6 +46,10 @@ public class DriveTrain {
 	    }	
 	}
 	
+	public void stop() {
+		go(0);
+	}
+	
 	public void updateSensors() {
 		m_hitFrontWall.update();
 		m_hitBackWall.update();

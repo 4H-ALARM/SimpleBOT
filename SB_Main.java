@@ -17,6 +17,7 @@ public class SB_Main {
 		dm2.setSpeed(0);
 		dm3.setSpeed(0);
 		dm4.setSpeed(0);
+		//dt.stop();
 		
 		// set forward or back or end
 		Scanner input = new Scanner(System.in);
@@ -51,6 +52,7 @@ public class SB_Main {
 		dm2.setSpeed(0);
 		dm3.setSpeed(0);
 		dm4.setSpeed(0);
+		// dt.stop();
 	}
 
 }
