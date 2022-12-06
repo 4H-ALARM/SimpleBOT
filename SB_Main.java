@@ -8,6 +8,7 @@ public class SB_Main {
 		DriveTrain dt = new DriveTrain();
 		Arm a = new Arm();
 		Scanner input = new Scanner(System.in);
+		String command = "";
 		
 		// start by making sure everything is stopped
 		dt.stop();
@@ -15,15 +16,15 @@ public class SB_Main {
 		
 		// loop collecting user input
 		while(true){	    
-		    String direction = input.next();
+			command = input.next();
 		    // command the subsystems, only one command at a time
-		    dt.drive(direction);
-		    a.move(direction);		    
+		    dt.drive(command);
+		    a.move(command);		    
 		    // update subsystem sensors
 		    dt.updateSensors();
 		    a.updateSensor();
-		        
-		    if(Commands.stop.compareTo(direction) == 0)
+		    // break out of loop if command is stop
+		    if(Commands.stop.compareTo(command) == 0)
 		        break;
 		}
 		
