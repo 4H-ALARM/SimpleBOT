@@ -21,11 +21,8 @@ public class DriveTrain {
 	}
 	
 	public void drive(String direction) {
-		String stop = "s";
-	    String forward = "f";
-	    String backward = "b";
-	    
-	    if (forward.compareTo(direction) == 0) {
+	    // drive in the commanded direction unless sensors tell us we have reached limit
+	    if (Commands.forward.compareTo(direction) == 0) {
 	    	if (m_hitFrontWall.read()) {
 	    		go(0);
 	    	} else {
@@ -33,7 +30,7 @@ public class DriveTrain {
 	    	}	    	
 	    }
 	    
-	    if (backward.compareTo(direction) == 0) {
+	    if (Commands.backward.compareTo(direction) == 0) {
 	    	if (m_hitBackWall.read()) {
 	    		go(0);
 	    	} else {
@@ -41,7 +38,7 @@ public class DriveTrain {
 	    	}
 	    }
 	    
-	    if (stop.compareTo(direction) == 0) {
+	    if (Commands.stop.compareTo(direction) == 0) {
 	    	go(0);
 	    }	
 	}

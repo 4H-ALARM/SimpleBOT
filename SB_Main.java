@@ -5,54 +5,31 @@ import java.util.Scanner;
 public class SB_Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Motor dm1 = new Motor("frontLeft");
-		Motor dm2 = new Motor("frontRight");
-		Motor dm3 = new Motor("rearLeft");
-		Motor dm4 = new Motor("rearRight");
-		// DriveTrain dt = new DriveTrain();
-
-		// Start stopped
-		dm1.setSpeed(0);
-		dm2.setSpeed(0);
-		dm3.setSpeed(0);
-		dm4.setSpeed(0);
-		//dt.stop();
-		
-		// set forward or back or end
+		DriveTrain dt = new DriveTrain();
+		Arm a = new Arm();
 		Scanner input = new Scanner(System.in);
-	    String stop = "s";
-	    String forward = "f";
-	    String backward = "b";
+		
+		// start by making sure everything is stopped
+		dt.stop();
+		a.stop();
+		
+		// loop collecting user input
 		while(true){	    
 		    String direction = input.next();
-		    // dt.drive(direction);
-		    // dt.updateSensors();
+		    // command the subsystems, only one command at a time
+		    dt.drive(direction);
+		    a.move(direction);		    
+		    // update subsystem sensors
+		    dt.updateSensors();
+		    a.updateSensor();
 		        
-		    if(stop.compareTo(direction) == 0)
+		    if(Commands.stop.compareTo(direction) == 0)
 		        break;
-		    else {
-		        if(forward.compareTo(direction) == 0) {
-		        	dm1.setSpeed(1);
-		    		dm2.setSpeed(1);
-		    		dm3.setSpeed(1);
-		    		dm4.setSpeed(1);
-		        }
-		        if(backward.compareTo(direction) == 0) {
-		        	dm1.setSpeed(-1);
-		    		dm2.setSpeed(-1);
-		    		dm3.setSpeed(-1);
-		    		dm4.setSpeed(-1);
-		        }
-		    }
 		}
 		
-		// End stopped
-		dm1.setSpeed(0);
-		dm2.setSpeed(0);
-		dm3.setSpeed(0);
-		dm4.setSpeed(0);
-		// dt.stop();
+		// end while making sure everything is stopped
+		dt.stop();
+		a.stop();
 	}
 
 }
