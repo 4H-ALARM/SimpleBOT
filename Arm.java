@@ -3,21 +3,23 @@ package SB;
 
 public class Arm {
 	
-	Motor m_pitchM;
-	Motor m_yawM;
+	private Motor m_pitchM;
+	private Motor m_yawM;
 	
-	Sensor m_pitchS;
-	Sensor m_yawS;
+	private Sensor m_pitchS;
+	private Sensor m_yawS;
+	
+	private YawSM m_yawState;
 	
 	public Arm() {
 		m_pitchM = new Motor("pitch");
 		m_yawM = new Motor("yaw");
 		m_pitchS = new Sensor();
 		m_yawS = new Sensor();
+		m_yawState = YawSM.Stopped;
 	}
 	
-	public void move(String direction) {
-		
+	public void move(String direction) {		
 		// move in commanded direction
 		if (Commands.up.compareTo(direction) == 0) {
 			pitch(1);
@@ -29,15 +31,18 @@ public class Arm {
 		
 		if (Commands.left.compareTo(direction) == 0) {
 			yaw(-1);
+			m_yawState.nextState(-1, m_yawS.read(), !m_yawS.read());
 		}
 		
 		if (Commands.right.compareTo(direction) == 0) {
 			yaw(1);
+			m_yawState.nextState(1, !m_yawS.read(), m_yawS.read());
 		}
 		
 		if (Commands.stop.compareTo(direction) == 0) {
 			stop();
-		}	
+			m_yawState.nextState(0, m_yawS.read(), m_yawS.read());
+		}
 		
 	}
 	
